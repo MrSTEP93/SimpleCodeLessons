@@ -1,0 +1,43 @@
+System.Data.Entity.Core.EntityCommandCompilationException
+  HResult=0x8013193B
+  Сообщение = An error occurred while preparing the command definition. See the inner exception for details.
+  Источник = EntityFramework
+  Трассировка стека:
+   at System.Data.Entity.Core.EntityClient.Internal.EntityCommandDefinition..ctor(DbProviderFactory storeProviderFactory, DbCommandTree commandTree, DbInterceptionContext interceptionContext, IDbDependencyResolver resolver, BridgeDataReaderFactory bridgeDataReaderFactory, ColumnMapFactory columnMapFactory)
+   at System.Data.Entity.Core.EntityClient.Internal.EntityProviderServices.CreateDbCommandDefinition(DbProviderManifest providerManifest, DbCommandTree commandTree, DbInterceptionContext interceptionContext)
+   at System.Data.Entity.Core.Common.DbProviderServices.CreateCommandDefinition(DbCommandTree commandTree, DbInterceptionContext interceptionContext)
+   at System.Data.Entity.Core.Objects.Internal.ObjectQueryExecutionPlanFactory.CreateCommandDefinition(ObjectContext context, DbQueryCommandTree tree)
+   at System.Data.Entity.Core.Objects.Internal.ObjectQueryExecutionPlanFactory.Prepare(ObjectContext context, DbQueryCommandTree tree, Type elementType, MergeOption mergeOption, Boolean streaming, Span span, IEnumerable`1 compiledQueryParameters, AliasGenerator aliasGenerator)
+   at System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass41_0.<GetResults>b__1()
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass41_0.<GetResults>b__0()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__31_0()
+   at System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.<>c__14`1.<GetElementFunction>b__14_0(IEnumerable`1 sequence)
+   at System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   at System.Data.Entity.Core.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[TResult](Expression expression)
+   at System.Data.Entity.Internal.Linq.DbQueryProvider.Execute[TResult](Expression expression)
+   at System.Linq.Queryable.First[TSource](IQueryable`1 source)
+   at zLesson02_Entity.Program.AddRows(testDB_01Entities context) in D:\CODING\repos\SimpleCodeLessons\zLesson02_Entity\Program.cs:line 36
+   at zLesson02_Entity.Program.Main(String[] args) in D:\CODING\repos\SimpleCodeLessons\zLesson02_Entity\Program.cs:line 21
+
+  Изначально это исключение было создано в этом стеке вызовов: 
+    [Внешний код]
+
+Внутреннее исключение 1:
+MappingException: 
+DbTestModel1.msl(33,10) : error 3002: Problem in mapping fragments starting at line 33:Potential runtime violation of table t_order_product's keys (t_order_product.id): 
+Columns (t_order_product.id) are mapped to EntitySet TProductsInOrders's properties (TProductsInOrders.id) on the conceptual side 
+but they do not form the EntitySet's key properties (TProductsInOrders.Count, TProductsInOrders.OrderId, TProductsInOrders.ProductId, TProductsInOrders.id).
+
+
+
+//индекс, который я удалил
+GO
+CREATE NONCLUSTERED INDEX [IX_t_order_product_OrderId]
+    ON [dbo].[t_order]([Id] ASC);
+

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище testDB_01Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище testDB_01Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="t_customer">
           <Key>
             <PropertyRef Name="Id" />
@@ -21,14 +21,11 @@
           <Property Name="CustomerID" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "testDB_01.dbo.t_order_product" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="t_order_product">
           <Key>
-            <PropertyRef Name="ProductId" />
-            <PropertyRef Name="OrderId" />
-            <PropertyRef Name="Count" />
+            <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductId" Type="int" Nullable="false" />
           <Property Name="OrderId" Type="int" Nullable="false" />
           <Property Name="Count" Type="int" Nullable="false" />
@@ -86,14 +83,8 @@
         <EntityContainer Name="Хранилище testDB_01ModelContainer">
           <EntitySet Name="t_customer" EntityType="Self.t_customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="t_order" EntityType="Self.t_order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_order_product" EntityType="Self.t_order_product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="t_product" EntityType="Self.t_product" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="t_order_product" EntityType="Self.t_order_product" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [t_order_product].[ProductId] AS [ProductId], 
-    [t_order_product].[OrderId] AS [OrderId], 
-    [t_order_product].[Count] AS [Count]
-    FROM [dbo].[t_order_product] AS [t_order_product]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_t_order_product_OrdrId" Association="Self.FK_t_order_product_OrdrId">
             <End Role="t_order" EntitySet="t_order" />
             <End Role="t_order_product" EntitySet="t_order_product" />
@@ -107,8 +98,7 @@
             <End Role="t_order" EntitySet="t_order" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="testDB_01Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -145,12 +135,14 @@
             <PropertyRef Name="ProductId" />
             <PropertyRef Name="OrderId" />
             <PropertyRef Name="Count" />
+            <PropertyRef Name="id" />
           </Key>
           <Property Name="ProductId" Type="Int32" Nullable="false" />
           <Property Name="OrderId" Type="Int32" Nullable="false" />
           <Property Name="Count" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Order" Relationship="Self.FK_t_order_product_OrdrId" FromRole="t_order_product" ToRole="t_order" />
           <NavigationProperty Name="Product" Relationship="Self.FK_t_order_product_ProductId" FromRole="t_order_product" ToRole="t_product" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <Association Name="FK_t_order_t_customer_CustomerID">
           <End Role="t_customer" Type="testDB_01Model.Customer" Multiplicity="1">
@@ -248,6 +240,7 @@
           <EntitySetMapping Name="TProductsInOrders">
             <EntityTypeMapping TypeName="testDB_01Model.ProductInOrder">
               <MappingFragment StoreEntitySet="t_order_product">
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="Count" ColumnName="Count" />
