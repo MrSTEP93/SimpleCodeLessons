@@ -12,15 +12,88 @@ namespace zLesson02_Entity
         {
             Console.WriteLine("Hello, World!");
             var context = Connect();
-            //var customers = GetCustomers3(context);
+            //ChangeUserInfo(context, "Женя С.", "Женя Сдерж.");
+            //var customers = GetCustomers0(context);
             //foreach (var item in customers)
             //{
             //    Console.WriteLine("ID: {0} \t Name: {1} \t Phone: {2}", item.Id, item.CustomerName, item.CustomerPhone);
             //}
-            //GetOrderDetails(context);
+            AddRows(context);
+            //GetOrderDetailsByInclude(context);
             GetClientProducts(context);
             Console.Write("Press mazafaka Enter to exit...");
             Console.ReadLine();
+        }
+        private static void AddRows(testDB_01Entities context)
+        {
+            Console.WriteLine("EF adding rows...");
+            Customer newCustomer = context.TCustomers.Add(new Customer { CustomerName = "Паша М.", CustomerPhone = "19" });
+            Order newOrder = context.TOrders.Add(new Order { Customer = newCustomer, CreateDate = DateTime.Now});
+            Product product = context.TProducts.First();
+            // Product product = context.TProducts.Single(c => c.Id == 5);
+            ProductInOrder productInOrder = context.TProductsInOrders.Add(new ProductInOrder { Order = newOrder, Product = product, Count = 2 });
+
+            Console.WriteLine("... Ready\n");
+            Console.WriteLine("EF is saving changes...");
+            context.SaveChanges();
+            Console.WriteLine("... Ready\n");
+        }
+
+        private static void ChangeUserInfo(testDB_01Entities context, int id, string newName)
+        {
+            try
+            {
+                Console.WriteLine("EF is updating row with id={0}...", id);
+                var customer = context.TCustomers.Single(c => c.Id == id);
+                customer.CustomerName = newName;
+                Console.WriteLine("... Ready\n");
+                Console.WriteLine("EF is saving changes...");
+                context.SaveChanges();
+                Console.WriteLine("... Ready\n");
+            } 
+            catch
+            {
+                Console.WriteLine("Entry with id={0} is not found in database", id);
+            }
+        }
+        private static void ChangeUserInfo(testDB_01Entities context, string oldName, string newName)
+        {
+            try
+            {
+                Console.WriteLine("EF is updating row with name={0}...", oldName);
+                var customer = context.TCustomers.Single(c => c.CustomerName == oldName);
+                customer.CustomerName = newName;
+                Console.WriteLine("... Ready\n");
+                Console.WriteLine("EF is saving changes...");
+                context.SaveChanges();
+                Console.WriteLine("... Ready\n");
+            }
+            catch
+            {
+                Console.WriteLine("Entry with name={0} is not found in database", oldName);
+            }
+        }
+
+        private static void GetOrderDetailsByInclude(testDB_01Entities context)
+        {
+            Console.WriteLine("EF is executing query...");
+            var customers = context.TCustomers.Include("Orders")
+                .Include("Orders.ProductsInOrder")
+                .Include("Orders.ProductsInOrder.Product");
+            Console.WriteLine("... Ready\n");
+            foreach (var customer in customers)
+            {
+                Console.WriteLine("{0}:", customer.CustomerName.Trim());
+                foreach (var order in customer.Orders)
+                {
+                    Console.WriteLine("\tOrder from {0}", order.CreateDate.ToString("dd.MM.yyyy"));
+                    foreach (var product in order.ProductsInOrder)
+                    {
+                        Console.WriteLine("\t\t{0} - {1} pcs.", product.Product.ProductName.Trim(), product.Count);
+                    }
+                }
+            }
+
         }
         private static void GetClientProducts(testDB_01Entities context)
         {
@@ -48,7 +121,7 @@ namespace zLesson02_Entity
                 Console.WriteLine("{0,15} {1,30} {2,8}", item.CustomerName.Trim(), item.ProductName.Trim(), item.ProductCount);
             }
         }
-        private static void GetOrderDetails(testDB_01Entities context)
+        private static void GetOrderDetailsByJoins(testDB_01Entities context)
         {
             Console.WriteLine("EF is executing query...");
             var query = from c in context.TCustomers
