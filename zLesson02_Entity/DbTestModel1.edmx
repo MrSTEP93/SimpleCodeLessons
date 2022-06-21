@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище testDB_01Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="t_customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerName" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="CustomerPhone" Type="nchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="t_order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "testDB_01.dbo.t_order_product" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="t_order_product">
+          <Key>
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="OrderId" />
+            <PropertyRef Name="Count" />
+          </Key>
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="OrderId" Type="int" Nullable="false" />
+          <Property Name="Count" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductName" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="ProductPrice" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_t_order_product_OrdrId">
+          <End Role="t_order" Type="Self.t_order" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="t_order_product" Type="Self.t_order_product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="t_order_product">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_order_product_ProductId">
+          <End Role="t_product" Type="Self.t_product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="t_order_product" Type="Self.t_order_product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="t_order_product">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_order_t_customer_CustomerID">
+          <End Role="t_customer" Type="Self.t_customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="t_order" Type="Self.t_order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="t_order">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище testDB_01ModelContainer">
+          <EntitySet Name="t_customer" EntityType="Self.t_customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_order" EntityType="Self.t_order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_product" EntityType="Self.t_product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_order_product" EntityType="Self.t_order_product" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [t_order_product].[ProductId] AS [ProductId], 
+    [t_order_product].[OrderId] AS [OrderId], 
+    [t_order_product].[Count] AS [Count]
+    FROM [dbo].[t_order_product] AS [t_order_product]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_t_order_product_OrdrId" Association="Self.FK_t_order_product_OrdrId">
+            <End Role="t_order" EntitySet="t_order" />
+            <End Role="t_order_product" EntitySet="t_order_product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_order_product_ProductId" Association="Self.FK_t_order_product_ProductId">
+            <End Role="t_product" EntitySet="t_product" />
+            <End Role="t_order_product" EntitySet="t_order_product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_order_t_customer_CustomerID" Association="Self.FK_t_order_t_customer_CustomerID">
+            <End Role="t_customer" EntitySet="t_customer" />
+            <End Role="t_order" EntitySet="t_order" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="testDB_01Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerName" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="CustomerPhone" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_t_order_t_customer_CustomerID" FromRole="t_customer" ToRole="t_order" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_t_order_t_customer_CustomerID" FromRole="t_order" ToRole="t_customer" />
+          <NavigationProperty Name="ProductsInOrder" Relationship="Self.FK_t_order_product_OrdrId" FromRole="t_order" ToRole="t_order_product" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ProductPrice" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="OrdersWithProduct" Relationship="Self.FK_t_order_product_ProductId" FromRole="t_product" ToRole="t_order_product" />
+        </EntityType>
+        <EntityType Name="ProductInOrder">
+          <Key>
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="OrderId" />
+            <PropertyRef Name="Count" />
+          </Key>
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="OrderId" Type="Int32" Nullable="false" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_t_order_product_OrdrId" FromRole="t_order_product" ToRole="t_order" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_t_order_product_ProductId" FromRole="t_order_product" ToRole="t_product" />
+        </EntityType>
+        <Association Name="FK_t_order_t_customer_CustomerID">
+          <End Role="t_customer" Type="testDB_01Model.Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="t_order" Type="testDB_01Model.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="t_order">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_order_product_OrdrId">
+          <End Role="t_order" Type="testDB_01Model.Order" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="t_order_product" Type="testDB_01Model.ProductInOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="t_order_product">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_order_product_ProductId">
+          <End Role="t_product" Type="testDB_01Model.Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="t_order_product" Type="testDB_01Model.ProductInOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="t_order_product">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="testDB_01Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TCustomers" EntityType="testDB_01Model.Customer" />
+          <EntitySet Name="TOrders" EntityType="testDB_01Model.Order" />
+          <EntitySet Name="TProducts" EntityType="testDB_01Model.Product" />
+          <EntitySet Name="TProductsInOrders" EntityType="testDB_01Model.ProductInOrder" />
+          <AssociationSet Name="FK_t_order_t_customer_CustomerID" Association="Self.FK_t_order_t_customer_CustomerID">
+            <End Role="t_customer" EntitySet="TCustomers" />
+            <End Role="t_order" EntitySet="TOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_order_product_OrdrId" Association="Self.FK_t_order_product_OrdrId">
+            <End Role="t_order" EntitySet="TOrders" />
+            <End Role="t_order_product" EntitySet="TProductsInOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_order_product_ProductId" Association="Self.FK_t_order_product_ProductId">
+            <End Role="t_product" EntitySet="TProducts" />
+            <End Role="t_order_product" EntitySet="TProductsInOrders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище testDB_01ModelContainer" CdmEntityContainer="testDB_01Entities">
+          <EntitySetMapping Name="TCustomers">
+            <EntityTypeMapping TypeName="testDB_01Model.Customer">
+              <MappingFragment StoreEntitySet="t_customer">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerPhone" ColumnName="CustomerPhone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TOrders">
+            <EntityTypeMapping TypeName="testDB_01Model.Order">
+              <MappingFragment StoreEntitySet="t_order">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerID" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TProducts">
+            <EntityTypeMapping TypeName="testDB_01Model.Product">
+              <MappingFragment StoreEntitySet="t_product">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TProductsInOrders">
+            <EntityTypeMapping TypeName="testDB_01Model.ProductInOrder">
+              <MappingFragment StoreEntitySet="t_order_product">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
