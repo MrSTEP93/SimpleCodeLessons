@@ -132,9 +132,6 @@
         </EntityType>
         <EntityType Name="ProductInOrder">
           <Key>
-            <PropertyRef Name="ProductId" />
-            <PropertyRef Name="OrderId" />
-            <PropertyRef Name="Count" />
             <PropertyRef Name="id" />
           </Key>
           <Property Name="ProductId" Type="Int32" Nullable="false" />

@@ -27,17 +27,20 @@ namespace zLesson02_Entity
         private static void AddRows(testDB_01Entities context)
         {
             Console.WriteLine("EF adding rows...");
-            Customer newCustomer = new Customer { CustomerName = "Паша М.", CustomerPhone = "19" };
-            context.TCustomers.Add(newCustomer );
-            Console.WriteLine("ID of new user {0} is {1}", newCustomer.Id, newCustomer.CustomerName);
-            Order newOrder = new Order { Customer = newCustomer, CreateDate = DateTime.Now};
-            context.TOrders.Add(newOrder);
-            Console.WriteLine("ID of new order at {0} is {1}", newOrder.CreateDate, newOrder.Id);
-            Product product = context.TProducts.First();
-            // Product product = context.TProducts.Single(c => c.Id == 5);
-            ProductInOrder productInOrder = context.TProductsInOrders.Add(new ProductInOrder { Order = newOrder, Product = product, Count = 2 });
+            //Customer newCustomer = context.TCustomers.Add(new Customer { CustomerName = "Ира И.", CustomerPhone = "16" });
+            Customer buyer = context.TCustomers.Single(c => c.CustomerPhone == "11");
+            Order newOrder = context.TOrders.Add(new Order { Customer = buyer, CreateDate = DateTime.Parse("01.04.2001 12:00:00") });
+            
+            ProductInOrder productInOrder = context.TProductsInOrders.Add(new ProductInOrder { Order = newOrder, Product = context.TProducts.Single(p => p.Id == 14), Count = 1 });
 
-            Console.WriteLine("... Ready\n");
+            //Product product1 = context.TProducts.Single(c => c.Id == 17);
+            //Product product2 = context.TProducts.Single(c => c.Id == 19);
+            //var productInOrder = new List<ProductInOrder> {
+            //    new ProductInOrder { Order = newOrder, Product = product1, Count = 1 },
+            //    new ProductInOrder { Order = newOrder, Product = product2, Count = 4 } };
+            //context.TProductsInOrders.AddRange(productInOrder);
+
+            Console.WriteLine("... Ready");
             Console.WriteLine("EF is saving changes...");
             context.SaveChanges();
             Console.WriteLine("... Ready\n");
