@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace pLesson_notepad.Properties
+namespace pLesson_notepad_bl.Properties
 {
 
 

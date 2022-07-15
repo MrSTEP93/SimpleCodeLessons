@@ -2,9 +2,9 @@
 
 namespace pLesson_notepad
 {
-    internal class MainPresenter
+    public class MainPresenter
     {
         private readonly IMainForm _view;
-        private readonly IFileManager fileManager;
+        private readonly pLesson_notepad_bl.IFileManager fileManager;
     }
 }
