@@ -30,15 +30,15 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.txtFilePath = new System.Windows.Forms.TextBox();
-            this.openDialogButton = new System.Windows.Forms.Button();
-            this.OpenButton = new System.Windows.Forms.Button();
+            this.BtnOpenDialog = new System.Windows.Forms.Button();
+            this.BtnOpenFile = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.numFontSize = new System.Windows.Forms.NumericUpDown();
             this.tbContent = new System.Windows.Forms.TextBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.butSave = new System.Windows.Forms.Button();
+            this.lblSymConut = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btnSaveFile = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numFontSize)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -61,25 +61,25 @@
             this.txtFilePath.Size = new System.Drawing.Size(506, 20);
             this.txtFilePath.TabIndex = 1;
             // 
-            // openDialogButton
+            // BtnOpenDialog
             // 
-            this.openDialogButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.openDialogButton.Location = new System.Drawing.Point(632, 13);
-            this.openDialogButton.Name = "openDialogButton";
-            this.openDialogButton.Size = new System.Drawing.Size(75, 23);
-            this.openDialogButton.TabIndex = 2;
-            this.openDialogButton.Text = "Обзор...";
-            this.openDialogButton.UseVisualStyleBackColor = true;
+            this.BtnOpenDialog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnOpenDialog.Location = new System.Drawing.Point(632, 13);
+            this.BtnOpenDialog.Name = "BtnOpenDialog";
+            this.BtnOpenDialog.Size = new System.Drawing.Size(75, 23);
+            this.BtnOpenDialog.TabIndex = 2;
+            this.BtnOpenDialog.Text = "Обзор...";
+            this.BtnOpenDialog.UseVisualStyleBackColor = true;
             // 
-            // OpenButton
+            // BtnOpenFile
             // 
-            this.OpenButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.OpenButton.Location = new System.Drawing.Point(713, 12);
-            this.OpenButton.Name = "OpenButton";
-            this.OpenButton.Size = new System.Drawing.Size(75, 23);
-            this.OpenButton.TabIndex = 3;
-            this.OpenButton.Text = "Открыть";
-            this.OpenButton.UseVisualStyleBackColor = true;
+            this.BtnOpenFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnOpenFile.Location = new System.Drawing.Point(713, 12);
+            this.BtnOpenFile.Name = "BtnOpenFile";
+            this.BtnOpenFile.Size = new System.Drawing.Size(75, 23);
+            this.BtnOpenFile.TabIndex = 3;
+            this.BtnOpenFile.Text = "Открыть";
+            this.BtnOpenFile.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -130,7 +130,7 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
-            this.toolStripStatusLabel2});
+            this.lblSymConut});
             this.statusStrip1.Location = new System.Drawing.Point(0, 428);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(800, 22);
@@ -144,35 +144,36 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(148, 17);
             this.toolStripStatusLabel1.Text = "Количество символов:";
             // 
-            // toolStripStatusLabel2
+            // lblSymConut
             // 
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(0, 17);
+            this.lblSymConut.Name = "lblSymConut";
+            this.lblSymConut.Size = new System.Drawing.Size(13, 17);
+            this.lblSymConut.Text = "0";
             // 
-            // butSave
+            // btnSaveFile
             // 
-            this.butSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.butSave.Enabled = false;
-            this.butSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.butSave.Location = new System.Drawing.Point(632, 43);
-            this.butSave.Name = "butSave";
-            this.butSave.Size = new System.Drawing.Size(156, 23);
-            this.butSave.TabIndex = 9;
-            this.butSave.Text = "Сохранить";
-            this.butSave.UseVisualStyleBackColor = true;
+            this.btnSaveFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSaveFile.Enabled = false;
+            this.btnSaveFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnSaveFile.Location = new System.Drawing.Point(632, 43);
+            this.btnSaveFile.Name = "btnSaveFile";
+            this.btnSaveFile.Size = new System.Drawing.Size(156, 23);
+            this.btnSaveFile.TabIndex = 9;
+            this.btnSaveFile.Text = "Сохранить";
+            this.btnSaveFile.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.butSave);
+            this.Controls.Add(this.btnSaveFile);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tbContent);
             this.Controls.Add(this.numFontSize);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.OpenButton);
-            this.Controls.Add(this.openDialogButton);
+            this.Controls.Add(this.BtnOpenFile);
+            this.Controls.Add(this.BtnOpenDialog);
             this.Controls.Add(this.txtFilePath);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
@@ -189,15 +190,15 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtFilePath;
-        private System.Windows.Forms.Button openDialogButton;
-        private System.Windows.Forms.Button OpenButton;
+        private System.Windows.Forms.Button BtnOpenDialog;
+        private System.Windows.Forms.Button BtnOpenFile;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown numFontSize;
         private System.Windows.Forms.TextBox tbContent;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.Button butSave;
+        private System.Windows.Forms.Button btnSaveFile;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripStatusLabel lblSymConut;
     }
 }
 
