@@ -81,5 +81,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\pLesson_notepad_CL\pLesson_notepad_CL.csproj">
+      <Project>{82e1ee46-ebc1-4388-83f4-6600dbf23243}</Project>
+      <Name>pLesson_notepad_CL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

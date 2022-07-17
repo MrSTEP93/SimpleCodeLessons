@@ -28,7 +28,7 @@ namespace pLesson_notepad
             BtnOpenDialog.Click += BtnOpenDialog_Click;
             BtnOpenFile.Click += BtnOpenFile_Click;
             btnSaveFile.Click += BtnSaveFile_Click;
-            txtFilePath.TextChanged += TxtFilePath_TextChanged;
+            tbContent.TextChanged += TbContent_TextChanged;
             numFontSize.ValueChanged += NumFontSize_ValueChanged;
         }
 
@@ -44,7 +44,14 @@ namespace pLesson_notepad
             {
                 txtFilePath.Text = dlg.FileName;
                 FileOpenClick?.Invoke(this, EventArgs.Empty);
+                EnableElements();
             }
+        }
+        private void EnableElements()
+        {
+            tbContent.Enabled = true;
+            numFontSize.Enabled = true;
+            btnSaveFile.Enabled = true;
         }
         private void NumFontSize_ValueChanged(object sender, EventArgs e)
         {
@@ -57,12 +64,16 @@ namespace pLesson_notepad
         {
             //if (FileOpenClick != null) FileOpenClick(this, new EventArgs());
             FileOpenClick?.Invoke(this, EventArgs.Empty);
+            EnableElements();
         }
+
+
+
         private void BtnSaveFile_Click(object sender, EventArgs e)
         {
             FileSaveClick?.Invoke(this, EventArgs.Empty);
         }
-        private void TxtFilePath_TextChanged(object sender, EventArgs e)
+        private void TbContent_TextChanged(object sender, EventArgs e)
         {
             ContentChanged?.Invoke(this, EventArgs.Empty);
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using pLesson_notepad_CL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,14 @@ namespace pLesson_notepad
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            Form1 form = new Form1();
+            MessageService service = new MessageService();
+            FileManager manager = new FileManager();
+
+            MainPresenter presenter = new MainPresenter(form, manager, service);
+
+            Application.Run(form);
         }
     }
 }
