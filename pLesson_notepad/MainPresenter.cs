@@ -28,7 +28,7 @@ namespace pLesson_notepad
             try
             {
                 string content = _view.Content;
-                _fileManager.SaveContent(content, _currentFilePath);
+                _fileManager.SaveContent(content, _currentFilePath); // .Replace("\\\\","\\")
                 _messageService.ShowMessage("Файл успешно сохранен");
             } catch (Exception ex)
             {

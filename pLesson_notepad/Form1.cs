@@ -67,8 +67,6 @@ namespace pLesson_notepad
             EnableElements();
         }
 
-
-
         private void BtnSaveFile_Click(object sender, EventArgs e)
         {
             FileSaveClick?.Invoke(this, EventArgs.Empty);

@@ -29,7 +29,7 @@ namespace pLesson_notepad_CL
         }
         public void SaveContent(string content, string filePath)
         {
-            SaveContent(filePath, content, _defaultEncoding);
+            SaveContent(content, filePath, _defaultEncoding);
         }
         public void SaveContent(string content, string filePath, Encoding encoding)
         {
