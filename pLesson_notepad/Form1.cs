@@ -30,9 +30,36 @@ namespace pLesson_notepad
             btnSaveFile.Click += BtnSaveFile_Click;
             tbContent.TextChanged += TbContent_TextChanged;
             numFontSize.ValueChanged += NumFontSize_ValueChanged;
+            btnCreateNew.Click += BtnCreateNew_Click;
         }
 
+
         #region Код формы
+        private void BtnCreateNew_Click(object sender, EventArgs e)
+        {
+            if (txtFilePath.Text == String.Empty)
+            {
+                SaveFileDialog dlg = new SaveFileDialog
+                {
+                    Title = "Выберите расположение и имя файла",
+                    Filter = "Текстовые файлы|*.txt|Все файлы|*.*",
+                    DefaultExt = "*.txt",
+                    AddExtension = true,
+                    ValidateNames = true,
+                    CheckFileExists = false
+                };
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    txtFilePath.Text = dlg.FileName;
+                    FileSaveClick?.Invoke(this, EventArgs.Empty);
+                    BtnOpenFile_Click(this, EventArgs.Empty);
+                }
+            } else
+            {
+                FileSaveClick?.Invoke(this, EventArgs.Empty);
+                BtnOpenFile_Click(this, EventArgs.Empty);
+            }
+        }
         private void BtnOpenDialog_Click(object sender, EventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog
@@ -77,7 +104,7 @@ namespace pLesson_notepad
         }
         #endregion
 
-        #region MainForm
+        #region MainForm (реализация интерфейса)
         public string FilePath
         {
             get { return txtFilePath.Text; }

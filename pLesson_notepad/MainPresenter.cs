@@ -25,10 +25,17 @@ namespace pLesson_notepad
 
         void View_FileSaveClick(object sender, EventArgs e)
         {
+            if (String.IsNullOrEmpty(_currentFilePath))
+            {
+                if (!String.IsNullOrEmpty(_view.FilePath))
+                    _currentFilePath = _view.FilePath;
+                else
+                    _messageService.ShowError("Не задано имя файла");
+            } 
             try
             {
                 string content = _view.Content;
-                _fileManager.SaveContent(content, _currentFilePath); // .Replace("\\\\","\\")
+                _fileManager.SaveContent(_currentFilePath, content);
                 _messageService.ShowMessage("Файл успешно сохранен");
             } catch (Exception ex)
             {

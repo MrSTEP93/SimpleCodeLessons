@@ -10,8 +10,10 @@ namespace pLesson_notepad_CL
     {
         string GetContent(string filePath);
         string GetContent(string filePath, Encoding encoding);
-        void SaveContent(string content, string filePath);
-        void SaveContent(string content, string filePath, Encoding encoding);
+        void SaveContent(string filePath, string content);
+        void SaveContent(string filePath, string content, Encoding encoding);
+        void CreateFile(string filePath);
+        void CreateFile(string filePath, Encoding encoding);
         int GetSymbolCount(string content);
         bool IsExist(string filePath);
     }
@@ -27,11 +29,11 @@ namespace pLesson_notepad_CL
             string content = File.ReadAllText(filePath, encoding);
             return content;
         }
-        public void SaveContent(string content, string filePath)
+        public void SaveContent(string filePath, string content)
         {
-            SaveContent(content, filePath, _defaultEncoding);
+            SaveContent(filePath, content, _defaultEncoding);
         }
-        public void SaveContent(string content, string filePath, Encoding encoding)
+        public void SaveContent(string filePath, string content, Encoding encoding)
         {
             File.WriteAllText(filePath, content, encoding);
         }
@@ -42,6 +44,15 @@ namespace pLesson_notepad_CL
         public bool IsExist(string filePath)
         {
             return File.Exists(filePath);
+        }
+
+        public void CreateFile(string filePath)
+        {
+            CreateFile(filePath, _defaultEncoding);
+        }
+        public void CreateFile(string filePath, Encoding encoding)
+        {
+            SaveContent(filePath, string.Empty, encoding);
         }
     }
 

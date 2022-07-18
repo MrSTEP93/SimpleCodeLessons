@@ -39,6 +39,7 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblSymConut = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnSaveFile = new System.Windows.Forms.Button();
+            this.btnCreateNew = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numFontSize)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -54,7 +55,7 @@
             // 
             // txtFilePath
             // 
-            this.txtFilePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.txtFilePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFilePath.Location = new System.Drawing.Point(120, 13);
             this.txtFilePath.Name = "txtFilePath";
@@ -74,7 +75,7 @@
             // BtnOpenFile
             // 
             this.BtnOpenFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnOpenFile.Location = new System.Drawing.Point(713, 12);
+            this.BtnOpenFile.Location = new System.Drawing.Point(713, 13);
             this.BtnOpenFile.Name = "BtnOpenFile";
             this.BtnOpenFile.Size = new System.Drawing.Size(75, 23);
             this.BtnOpenFile.TabIndex = 3;
@@ -115,8 +116,8 @@
             // 
             // tbContent
             // 
-            this.tbContent.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.tbContent.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbContent.Enabled = false;
             this.tbContent.Location = new System.Drawing.Point(12, 77);
@@ -162,11 +163,21 @@
             this.btnSaveFile.Text = "Сохранить";
             this.btnSaveFile.UseVisualStyleBackColor = true;
             // 
+            // btnCreateNew
+            // 
+            this.btnCreateNew.Location = new System.Drawing.Point(551, 42);
+            this.btnCreateNew.Name = "btnCreateNew";
+            this.btnCreateNew.Size = new System.Drawing.Size(75, 23);
+            this.btnCreateNew.TabIndex = 10;
+            this.btnCreateNew.Text = "Создать новый";
+            this.btnCreateNew.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnCreateNew);
             this.Controls.Add(this.btnSaveFile);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tbContent);
@@ -199,6 +210,7 @@
         private System.Windows.Forms.Button btnSaveFile;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel lblSymConut;
+        private System.Windows.Forms.Button btnCreateNew;
     }
 }
 
